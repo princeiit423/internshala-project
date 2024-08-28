@@ -29,7 +29,6 @@ app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));
 //app.use(bodyParser.urlencoded({ extended: true }));
 
-//dbUrl = "mongodb+srv://princeiit423:<db_password>@apitest.ujeqft9.mongodb.net/?retryWrites=true&w=majority&appName=apiTest"
 dbUrl=process.env.DBM;
 try {
     mongoose.connect(dbUrl);
