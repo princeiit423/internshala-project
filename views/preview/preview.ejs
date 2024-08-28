@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Applicant Preview</title>
+    <link rel="stylesheet" href="/styles.css"> <!-- Link to your CSS file if needed -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            text-align: center;
+        }
+        .field {
+            margin-bottom: 15px;
+        }
+        .field label {
+            font-weight: bold;
+        }
+        .field p {
+            margin: 5px 0;
+        }
+        .actions {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .actions button, .actions a button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+        }
+        .actions button:hover, .actions a button:hover {
+            background-color: #0056b3;
+        }
+        .actions a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Applicant Preview</h1>
+        <div class="field">
+            <label for="name">Name:</label>
+            <p><%= applicant.name %></p>
+        </div>
+        <div class="field">
+            <label for="description">Description:</label>
+            <p><%= applicant.description %></p>
+        </div>
+        <div class="field">
+            <label for="education">Education:</label>
+            <p><%= applicant.education %></p>
+        </div>
+        <div class="field">
+            <label for="state">State:</label>
+            <p><%= applicant.state %></p>
+        </div>
+        <div class="field">
+            <label for="country">Country:</label>
+            <p><%= applicant.country %></p>
+        </div>
+        <div class="field">
+            <label for="job">Job:</label>
+            <p><%= applicant.job %></p>
+        </div>
+        <div class="field">
+            <label for="skill">Skill:</label>
+            <p><%= applicant.skill %></p>
+        </div>
+        <div class="field">
+            <label for="resume">Resume:</label>
+            <p>
+                <a href="<%= applicant.resume.url %>" target="_blank"><%= applicant.resume.filename %></a>
+            </p>
+        </div>
+        <div class="actions">
+            <a href="/"><button>Go Home</button></a>
+        </div>
+    </div>
+</body>
+</html>

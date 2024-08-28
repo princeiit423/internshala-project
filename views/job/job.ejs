@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Applicant Form</title>
+    <link rel="stylesheet" href="/path-to-your-css/styles.css"> <!-- Link to your CSS file -->
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.form-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
+    height: auto;
+    margin-top: 3%;
+}
+
+h2 {
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"], input[type="file"], textarea {
+    width: 90%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+textarea {
+    resize: vertical;
+}
+
+button {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Applicant Form</h2>
+        <form action="/applicant" method="POST" enctype="multipart/form-data">
+            <h2>Apply for Job</h2>
+            <div class="form-group">
+                <label for="name">Full Name:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Introduce Yourself :</label>
+                <textarea id="description" name="description" rows="4" placeholder="Indtorduce within 500 words"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="education">Highest Education:</label>
+                <input type="text" id="education" name="education">
+            </div>
+            <div class="form-group">
+                <label for="education">Contact Number:</label>
+                <input type="text" id="contact" name="contact">
+            </div>
+            <div class="form-group">
+                <label for="state">Current State:</label>
+                <input type="text" id="state" name="state">
+            </div>
+            <div class="form-group">
+                <label for="country">Country:</label>
+                <input type="text" id="country" name="country">
+            </div>
+            <div class="form-group">
+                <label for="job">Job you apply for:</label>
+                <input type="text" id="job" name="job">
+            </div>
+            <div class="form-group">
+                <label for="skill">Skill you have:</label>
+                <input type="text" id="skill" name="skill">
+            </div>
+            <div class="form-group">
+                <label for="resume">Upload Resume:</label>
+                <input type="file" id="resume" name="resume">
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>

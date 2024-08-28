@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Application Home</title>
+    <link rel="stylesheet" href="/styles.css"> <!-- Link to your CSS file if needed -->
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .navbar {
+            background-color: #343a40;
+            padding: 15px 30px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .navbar a:hover {
+            background-color: #495057;
+            border-radius: 5px;
+            color: #ffffff;
+        }
+        .container {
+            text-align: center;
+            padding: 100px 20px;
+        }
+        .container h1 {
+            margin-bottom: 20px;
+            font-size: 3em;
+            color: #333;
+        }
+        .container p {
+            font-size: 1.2em;
+            color: #666;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .cta-button {
+            display: inline-block;
+            padding: 15px 30px;
+            font-size: 18px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        .cta-button:hover {
+            background-color: #0056b3;
+        }
+
+        #cool {
+            display: inline-block;
+            padding: 15px 30px;
+            font-size: 18px;
+            color: #fff;
+            background-color: #00ff62;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            margin-top: 5px;
+        }
+        #cool:hover {
+            background-color: #2cc679;
+        }
+        
+
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="/">Home</a>
+        <a href="/signup">Signup</a>
+        <a href="/login">Login</a>
+        <a href="/logout">Logout</a>
+        <a href="/applicant">Applicant</a>
+    </div>
+    <div class="container">
+        <h1>Welcome to the Job Application Portal</h1>
+        <p>Explore exciting career opportunities, manage your applications, and connect with employers seamlessly.</p>
+        <a href="/signup" class="cta-button">Get Started</a> <br>
+        <a href="/applicant" id="cool" class="cta-button">Apply for job</a>
+    </div>
+</body>
+</html>
