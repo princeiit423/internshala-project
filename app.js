@@ -11,8 +11,9 @@ const path = require("path");
 const passport = require("passport");
 const localStrategy = require("passport-local");
 const User = require("./models/user.js");
+require('dotenv').config()
 
-port = 4000;
+port = process.env.PORT || 4000;
 
 const multer = require("multer");
 const { storage } = require("./cloudConfig.js");
@@ -28,7 +29,8 @@ app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));
 //app.use(bodyParser.urlencoded({ extended: true }));
 
-dbUrl = "mongodb+srv://princeiit423:<db_password>@apitest.ujeqft9.mongodb.net/?retryWrites=true&w=majority&appName=apiTest"
+//dbUrl = "mongodb+srv://princeiit423:<db_password>@apitest.ujeqft9.mongodb.net/?retryWrites=true&w=majority&appName=apiTest"
+dbUrl=process.env.DBM;
 try {
     mongoose.connect(dbUrl);
     console.log("connect to databse")
