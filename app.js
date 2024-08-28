@@ -28,7 +28,7 @@ app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));
 //app.use(bodyParser.urlencoded({ extended: true }));
 
-dbUrl = "mongodb+srv://princeiit423:ihxICSGSflDpDUiR@apitest.ujeqft9.mongodb.net/?retryWrites=true&w=majority&appName=apiTest"
+dbUrl = "mongodb+srv://princeiit423: yL7sI7ZTbFNARcgd@cluster1.cnhha.mongodb.net/?retryWrites=true&w=majority&appName=Cluster1"
 try {
     mongoose.connect(dbUrl);
     console.log("connect to databse")
