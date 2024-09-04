@@ -1,12 +1,15 @@
 const express = require("express");
 const app = express();
+const methodOverride = require('method-override')
 const mongoose = require("mongoose");
 const ejs = require("ejs");
 const ejsMate = require("ejs-mate");
 const session = require("express-session");
 const MongoStore = require('connect-mongo');
 const Applicant = require("./models/applicant.js");
+const Job= require("./models/job.js");
 isLoggedIn= require("./middleware.js");
+isAdmin= require("./isAdmin.js");
 const path = require("path");
 const passport = require("passport");
 const localStrategy = require("passport-local");
@@ -14,6 +17,8 @@ const User = require("./models/user.js");
 require('dotenv').config()
 
 port = process.env.PORT || 4000;
+
+
 
 const multer = require("multer");
 const { storage } = require("./cloudConfig.js");
@@ -24,12 +29,13 @@ const upload = multer({ storage });
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride("_method"));
 //app.use(methodOverride("_method"));
 app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));
 //app.use(bodyParser.urlencoded({ extended: true }));
 
-dbUrl=process.env.DBM;
+dbUrl="mongodb://localhost:27017/internship";
 try {
     mongoose.connect(dbUrl);
     console.log("connect to databse")
@@ -59,8 +65,10 @@ const sessionOptions = {
     },
 };
 
-app.get("/", (req, res) => {
-    res.render("home/home.ejs");
+app.get("/", async(req, res) => {
+    const list=await Job.find({});
+    const admi= req.user||null;
+    res.render("home/home1.ejs", {list, admi});
 })
 
 app.use(session(sessionOptions));
@@ -103,8 +111,12 @@ app.get("/login", (req, res) => {
 app.post(
     "/login",
     passport.authenticate("local", { failureRedirect: "/login" }),
-    (req, res) => {
-        res.redirect("/");
+    async (req, res) => {
+        const list=await Job.find({});
+    const admi= req.user||null;
+    res.render("home/home1.ejs", {list, admi});
+
+        //res.redirect("/");
     }
 );
 
@@ -113,14 +125,11 @@ app.get("/logout", (req, res, next) => {
         if (err) {
             return next(err);
         } else {
-            return res.redirect("/login");
+            return res.redirect("/");
         }
     });
 });
 
-app.get("/applicant", isLoggedIn, (req, res) => {
-    res.render("job/job.ejs");
-})
 
 app.post("/applicant",isLoggedIn,upload.single("resume"), async(req, res) => {
     try {
@@ -134,7 +143,7 @@ app.post("/applicant",isLoggedIn,upload.single("resume"), async(req, res) => {
         newApplicant.resume = { url, filename };
         await newApplicant.save();
         const id= await newApplicant._id;
-        res.redirect(`/preview/${id}`);
+        res.redirect("/success");
     } catch (error) {
         res.send(error);
     }
@@ -149,6 +158,46 @@ app.post("/applicant",isLoggedIn,upload.single("resume"), async(req, res) => {
                 res.send(error);
             }
   })
+
+  app.get("/success",(req,res)=>{
+    res.render("success/success.ejs");
+  })
+
+  app.get("/admin", isLoggedIn,isAdmin,(req,res)=>{
+    res.render("admin/admin.ejs");
+  })
+
+  app.get("/job-posting",isLoggedIn, (req,res)=>{
+    res.render("job-posting/job-posting.ejs");
+  })
+
+  app.get("/job-posting/:id",isLoggedIn, async(req,res)=>{
+    const id = req.params.id;
+    const job= await Job.findById(id);
+    res.render("show-job/show-job.ejs",{job});
+})
+
+app.delete("/job-posting/job-apply/:id", isLoggedIn,isAdmin, async(req,res)=>{
+    const id = req.params.id;
+    await Job.findByIdAndDelete(id);
+    res.redirect("/")
+})
+
+  app.post("/job-posting",isLoggedIn,isAdmin,async(req,res)=>{
+    const {jobTitle,description,jobType,location,salary,skill,country,companyName}=req.body;
+    const listing= await new Job({jobTitle,description,companyName,jobType,location,salary,skill,country});
+    await listing.save();
+    res.redirect("/admin");
+  })
+
+  app.get("/job-posting/job-apply/:id", isLoggedIn, async(req,res)=>{
+    const id = req.params.id;
+    const job= await Job.findById(id);
+    res.render("job/job.ejs",{job});
+  })
+  
+
+
 app.listen(port, (req, res) => {
     console.log(`server running on port: ${port} `);
 });

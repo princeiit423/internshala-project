@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Details - JobPortal</title>
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f9f9f9, #e0e0e0);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Navbar */
+        nav {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 15px 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            transition: background 0.3s ease;
+        }
+
+        nav.scrolled {
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #16a085;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links li {
+            position: relative;
+        }
+
+        .nav-links li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            padding: 5px;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .nav-links li a:hover {
+            color: #16a085;
+            transform: translateY(-2px);
+        }
+
+        /* Job Details Section */
+        .job-details {
+            max-width: 800px;
+            margin: 80px auto 40px; /* Adjusted for fixed navbar */
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .job-title {
+            font-size: 32px;
+            color: #16a085;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .job-info {
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+
+        .job-description {
+            margin-bottom: 20px;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        .apply-btn {
+            display: inline-block;
+            background: linear-gradient(45deg, #1abc9c, #16a085);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        .apply-btn:hover {
+            background: linear-gradient(45deg, #16a085, #1abc9c);
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        footer {
+            background: #1abc9c;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <div class="logo">JobPortal</div>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Jobs</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="job-details">
+        
+        <h1 class="job-title"><%=job.jobTitle %></h1>
+        <p class="job-info"><strong>Company:</strong><%=job.companyName %></p>
+        <p class="job-info"><strong>Location:</strong><%=job.location %></p>
+        <p class="job-info"><strong>Salary:</strong><%=job.salary %></p>
+        <p class="job-info"><strong>Job Type:</strong> <%=job.jobType%></p>
+        <p class="job-info"><strong>Skills Required:</strong><%=job.skill %></p>
+        <p class="job-description">
+            <strong>Job Description:</strong> <%=job.description %></p>
+        <a href="job-apply/<%=job._id %>" class="apply-btn">Apply Now</a>
+        <br>
+        <form method="post" action="job-apply/<%=job._id %>?_method=DELETE">
+            <button style="margin-top: 10px;" class="apply-btn" type="submit">delete</button>
+        </form>
+    </section>
+
+   
+
+    <footer>
+        <p>&copy; 2024 JobPortal. All rights reserved.</p>
+    </footer>
+    
+    <script>
+        // Optional JavaScript to handle navbar background change on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>
