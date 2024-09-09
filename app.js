@@ -226,6 +226,6 @@ app.delete("/job-posting/job-apply/:id", isLoggedIn,isAdmin, async(req,res)=>{
   
 
 
-app.listen(port, (req, res) => {
+app.listen(port, '0.0.0.0' , () => {
     console.log(`server running on port: ${port} `);
 });
