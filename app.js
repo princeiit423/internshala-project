@@ -66,9 +66,14 @@ const sessionOptions = {
 };
 
 app.get("/", async(req, res) => {
+    try {
+        
     const list=await Job.find({});
     const admi= req.user||null;
     res.render("home/home1.ejs", {list, admi});
+    } catch (error) {
+        res.send(error);
+    }
 })
 
 app.use(session(sessionOptions));
@@ -84,25 +89,28 @@ app.get("/signup", (req, res) => {
     res.render("signup/signup.ejs");
 });
 
-try {
-    app.post("/signup", async (req, res) => {
-        let { username, email, password } = req.body;
-        console.log(req.body);
-        const chutiyaUser = new User({ username, email });
-        let registerUser = await User.register(chutiyaUser, password);
-        await registerUser.save();
-        //functionality to directly login after signup
-        req.login(registerUser, (err) => {
-            if (err) {
-                return next(err);
-            } else {
-                return res.redirect("/");
-            }
-        });
-    });
-} catch (error) {
-    next(err);
-}
+
+ app.post("/signup", async (req, res) => {
+        try {
+            let { username, email, password } = req.body;
+            const chutiyaUser = new User({ username, email });
+            let registerUser = await User.register(chutiyaUser, password);
+            await registerUser.save();
+            //functionality to directly login after signup
+            req.login(registerUser, (err) => {
+                if (err) {
+                    return next(err);
+                } else {
+                    return res.redirect("/");
+                }
+            });
+    
+        } catch (error) {
+            res.send(error);
+        }
+
+});
+ 
 
 app.get("/login", (req, res) => {
     res.render("login/login.ejs");
@@ -112,10 +120,14 @@ app.post(
     "/login",
     passport.authenticate("local", { failureRedirect: "/login" }),
     async (req, res) => {
-        const list=await Job.find({});
+        try {
+            const list=await Job.find({});
     const admi= req.user||null;
     res.render("home/home1.ejs", {list, admi});
 
+        } catch (error) {
+            res.send(error);
+        }
         //res.redirect("/");
     }
 );
@@ -133,16 +145,16 @@ app.get("/logout", (req, res, next) => {
 
 app.post("/applicant",isLoggedIn,upload.single("resume"), async(req, res) => {
     try {
-        const url = req.file.path;
-        const filename = req.file.filename;
+       // const url = req.file.path;
+        //const filename = req.file.filename;
         const { name, description, resume, education, state, country, job, skill } = req.body;
         const newApplicant = new Applicant({
             name, description, resume, education, state, country, job, skill
         });
 
-        newApplicant.resume = { url, filename };
+        //newApplicant.resume = { url, filename };
         await newApplicant.save();
-        const id= await newApplicant._id;
+        //const id= await newApplicant._id;
         res.redirect("/success");
     } catch (error) {
         res.send(error);
@@ -172,28 +184,44 @@ app.post("/applicant",isLoggedIn,upload.single("resume"), async(req, res) => {
   })
 
   app.get("/job-posting/:id",isLoggedIn, async(req,res)=>{
-    const id = req.params.id;
+    try {
+        const id = req.params.id;
     const job= await Job.findById(id);
     res.render("show-job/show-job.ejs",{job});
+    } catch (error) {
+        res.send(error);
+    }
 })
 
 app.delete("/job-posting/job-apply/:id", isLoggedIn,isAdmin, async(req,res)=>{
-    const id = req.params.id;
+    try {
+        const id = req.params.id;
     await Job.findByIdAndDelete(id);
     res.redirect("/")
+    } catch (error) {
+        res.send(error);
+    }
 })
 
   app.post("/job-posting",isLoggedIn,isAdmin,async(req,res)=>{
-    const {jobTitle,description,jobType,location,salary,skill,country,companyName}=req.body;
+    try {
+        const {jobTitle,description,jobType,location,salary,skill,country,companyName}=req.body;
     const listing= await new Job({jobTitle,description,companyName,jobType,location,salary,skill,country});
     await listing.save();
     res.redirect("/admin");
+    } catch (error) {
+        res.send(error);
+    }
   })
 
   app.get("/job-posting/job-apply/:id", isLoggedIn, async(req,res)=>{
-    const id = req.params.id;
+    try {
+        const id = req.params.id;
     const job= await Job.findById(id);
     res.render("job/job.ejs",{job});
+    } catch (error) {
+        res.send(error);
+    }
   })
   
 
