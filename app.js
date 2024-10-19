@@ -20,6 +20,7 @@ port = process.env.PORT || 4000;
 
 
 
+
 const multer = require("multer");
 const { storage } = require("./cloudConfig.js");
 
@@ -35,7 +36,8 @@ app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));
 //app.use(bodyParser.urlencoded({ extended: true }));
 
-dbUrl=process.env.DBM;
+//dbUrl=process.env.DBM;
+const dbUrl="mongodb://localhost:27017/internship";
 try {
     mongoose.connect(dbUrl);
     console.log("connect to databse")
@@ -65,6 +67,16 @@ const sessionOptions = {
     },
 };
 
+
+app.use(session(sessionOptions));
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new localStrategy(User.authenticate()));
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+
 app.get("/", async(req, res) => {
     try {
         
@@ -75,14 +87,6 @@ app.get("/", async(req, res) => {
         res.send(error);
     }
 })
-
-app.use(session(sessionOptions));
-app.use(passport.initialize());
-app.use(passport.session());
-passport.use(new localStrategy(User.authenticate()));
-
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
 
 
 app.get("/signup", (req, res) => {
@@ -97,11 +101,14 @@ app.get("/signup", (req, res) => {
             let registerUser = await User.register(chutiyaUser, password);
             await registerUser.save();
             //functionality to directly login after signup
-            req.login(registerUser, (err) => {
+            req.login(registerUser, async(err) => {
                 if (err) {
                     return next(err);
                 } else {
-                    return res.redirect("/");
+                    const list=await Job.find({});
+                    const admi= req.user||null;
+                    res.render("home/home1.ejs", {list, admi});
+
                 }
             });
     
