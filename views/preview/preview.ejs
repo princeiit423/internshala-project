@@ -3,95 +3,230 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Applicant Preview</title>
-    <link rel="stylesheet" href="/styles.css"> <!-- Link to your CSS file if needed -->
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            padding: 20px;
-        }
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            background-color: #f9f9f9;
-        }
-        h1 {
-            text-align: center;
-        }
-        .field {
-            margin-bottom: 15px;
-        }
-        .field label {
-            font-weight: bold;
-        }
-        .field p {
-            margin: 5px 0;
-        }
-        .actions {
-            text-align: center;
-            margin-top: 20px;
-        }
-        .actions button, .actions a button {
-            padding: 10px 20px;
-            font-size: 16px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            background-color: #007bff;
-            color: white;
-            text-align: center;
-        }
-        .actions button:hover, .actions a button:hover {
-            background-color: #0056b3;
-        }
-        .actions a {
-            text-decoration: none;
-        }
+    <title>Job Details - Laravel Developer</title>
+    <link rel="stylesheet" href="styles.css">
+    <style> 
+        /* Reset some default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+body::-webkit-scrollbar {
+    width: 15px; /* Width of the scrollbar */
+  }
+  
+  body::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Background color of the scrollbar track */
+    border-radius: 10px; /* Rounding the track */
+  }
+  
+  body::-webkit-scrollbar-thumb {
+    background-color: #1d7756; /* Scrollbar color */
+    border-radius: 10px; /* Rounding the scrollbar */
+    border: 2px solid #f1f1f1; /* Adds a border for a better effect */
+  }
+  
+  body::-webkit-scrollbar-thumb:hover {
+    background-color: #155b3d; /* Darker color on hover */
+  }
+
+
+.navbar {
+    width: 100%;
+    padding: 15px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+    font-size: 24px;
+    color: #27ae60;
+    font-weight: bold;
+}
+
+.nav-links a {
+    margin-left: 20px;
+    font-size: 16px;
+    color: #333;
+    text-decoration: none;
+}
+
+.post-job-button {
+    background-color: #27ae60;
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.job-details-container {
+    width: 80%;
+    max-width: 800px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px 30px;
+    margin-top: 20px;
+}
+
+.job-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #34495e;
+    text-align: center;
+}
+
+.job-type {
+    font-size: 18px;
+    font-weight: normal;
+    color: #7f8c8d;
+}
+
+.job-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+    gap: 10px;
+}
+
+.view-company-btn, .apply-job-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.view-company-btn {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+.apply-job-btn {
+    background-color: #27ae60;
+    color: #fff;
+}
+
+.job-info p {
+    font-size: 16px;
+    margin: 8px 0;
+}
+
+h2 {
+    font-size: 20px;
+    color: #34495e;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #ecf0f1;
+    padding-bottom: 5px;
+}
+
+ul {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+
+li {
+    font-size: 16px;
+    margin-bottom: 8px;
+    color: #555;
+}
+
+.footer {
+    width: 100%;
+    background-color: #2c3e50;
+    padding: 10px 0;
+    text-align: center;
+    color: #fff;
+    font-size: 14px;
+    position: fixed;
+    bottom: 0;
+}
+
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Applicant Preview</h1>
-        <div class="field">
-            <label for="name">Name:</label>
-            <p><%= applicant.name %></p>
+    <header class="navbar">
+        <div class="logo">JobsPortal</div>
+        <div class="nav-links">
+            <a href="#" class="login-link">Login</a>
+            <a href="#" class="post-job-button">Post a job</a>
         </div>
-        <div class="field">
-            <label for="description">Description:</label>
-            <p><%= applicant.description %></p>
+    </header>
+
+    <div class="job-details-container">
+        <h1 class="job-title"><%=applicant.jobTitle %> <span class="job-type">(<%=applicant.jobType %>)</span> - <%=applicant.companyName %></h1>
+        
+        <div class="job-actions">
+            <button class="view-company-btn">View Company</button>
+            <button class="apply-job-btn">Apply This Job</button>
         </div>
-        <div class="field">
-            <label for="education">Education:</label>
-            <p><%= applicant.education %></p>
-        </div>
-        <div class="field">
-            <label for="state">State:</label>
-            <p><%= applicant.state %></p>
-        </div>
-        <div class="field">
-            <label for="country">Country:</label>
-            <p><%= applicant.country %></p>
-        </div>
-        <div class="field">
-            <label for="job">Job:</label>
-            <p><%= applicant.job %></p>
-        </div>
-        <div class="field">
-            <label for="skill">Skill:</label>
-            <p><%= applicant.skill %></p>
-        </div>
-        <div class="field">
-            <label for="resume">Resume:</label>
-            <p>
-                <a href="<%= applicant.resume.url %>" target="_blank"><%= applicant.resume.filename %></a>
-            </p>
-        </div>
-        <div class="actions">
-            <a href="/"><button>Go Home</button></a>
-        </div>
+
+        <section class="job-info">
+            <p><strong>Minimum Qualification:</strong><%=applicant.qualification%></p>
+            <p><strong>Experience Level:</strong> Mid level</p>
+            <p><strong>Experience Length:</strong> 2 years</p>
+            <p><strong>Location:</strong><%=applicant.location %></p>
+            <p><strong>Application Deadline:</strong><%=applicant.applicationDeadline %></p>
+            <p><strong>Salary Range:</strong><%=applicant.salaryRange %></p>
+        </section>
+
+        <section class="job-description">
+            <h2>Job description</h2>
+            <p><%=applicant.jobDescription %></p>
+            <p>To ensure success as a Laravel developer you should be adept at utilizing Laravel's GUI and be able to design a PHP application from start to finish. A top-notch Laravel developer will be able to leverage their expertise and experience of the framework to independently produce complete solutions in a short turnaround time.</p>
+        </section>
+
+        <section class="job-requirements">
+            <h2><%=applicant.jobTitle %> Requirements:</h2>
+            <ul>
+                <li>A degree in programming, computer science, or a related field.</li>
+                <li>Experience working with PHP, performing unit testing, and managing APIs such as REST.</li>
+                <li>A solid understanding of application design using Laravel.</li>
+                <li>Knowledge of database design and querying using SQL.</li>
+                <li>Proficiency in HTML and JavaScript. Experience developing in Vue is considered a plus.</li>
+                <li>Practical experience using the MVC architecture.</li>
+                <li>The ability to work on LAMP development environment</li>
+                <li>Problem-solving skills and critical mindset.</li>
+                <li>Great communication skills.</li>
+                <li>The desire and ability to learn.</li>
+            </ul>
+        </section>
+
+        <section class="job-responsibilities">
+            <h2>Responsibilities:</h2>
+            <ul>
+                <li>Discussing project aims with the client and development team.</li>
+                <li>Designing and building web applications using Laravel.</li>
+                <li>Troubleshooting issues in the implementation and debug builds.</li>
+                <li>Working with front-end and back-end developers on projects.</li>
+                <li>Testing functionality for users and the backend.</li>
+                <li>Ensuring that integrations run smoothly.</li>
+                <li>Scaling projects based on client feedback.</li>
+                <li>Recording and reporting on work done in Laravel.</li>
+                <li>Maintaining web-based applications.</li>
+                <li>Presenting work in meetings with clients and management.</li>
+            </ul>
+        </section>
     </div>
+
+    <footer class="footer">
+        <p>&copy; 2022 Jobs Portal. Designed by Wilson Kinyua.</p>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>

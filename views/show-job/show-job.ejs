@@ -22,20 +22,14 @@
 
         /* Navbar */
         nav {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(10px);
+            background-color: #2ecc71; /* Primary green color */
             padding: 15px 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             position: fixed;
             width: 100%;
             top: 0;
             left: 0;
             z-index: 1000;
-            transition: background 0.3s ease;
-        }
-
-        nav.scrolled {
-            background: rgba(255, 255, 255, 0.9);
         }
 
         .nav-container {
@@ -48,34 +42,68 @@
 
         .logo {
             font-size: 24px;
-            font-weight: 700;
-            color: #16a085;
-            transition: color 0.3s ease;
+            font-weight: 600;
+            color: #fff;
         }
 
+        /* Navigation Links */
         .nav-links {
             list-style: none;
             display: flex;
             gap: 20px;
         }
 
-        .nav-links li {
-            position: relative;
-        }
-
         .nav-links li a {
             text-decoration: none;
-            color: #333;
+            color: #fff;
             font-weight: 500;
-            padding: 5px;
-            transition: color 0.3s ease, transform 0.3s ease;
+            transition: color 0.3s ease;
         }
 
         .nav-links li a:hover {
-            color: #16a085;
-            transform: translateY(-2px);
+            color: #c7f5d6;
         }
 
+        /* Hamburger Menu */
+        .menu-icon {
+            display: none;
+            font-size: 24px;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        /* Mobile Menu */
+        .nav-links-mobile {
+            display: none;
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            background-color: #2ecc71;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .nav-links-mobile li a {
+            color: #fff;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            .menu-icon {
+                display: block;
+            }
+        }
+
+        /* Show mobile menu when active */
+        .nav-links-mobile.active {
+            display: flex;
+        }
         /* Job Details Section */
         .job-details {
             max-width: 800px;
@@ -155,16 +183,36 @@
 <body>
     <nav>
         <div class="nav-container">
-            <div class="logo">JobPortal</div>
+            <div class="logo">JobConnect</div>
             <ul class="nav-links">
-                <li><a href="/">Home</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Jobs</a></li>
-                <li><a href="#">Contact</a></li>
+                <li><a href="/admin">Admin</a></li>
+                <li><a href="#why-choose-us">Why Choose Us</a></li>
+                <li><a href="#featured-jobs">Featured Jobs</a></li>
+                <li><a href="#job-listings">Job Listings</a></li>
+                <li><a href="#contact-us">Contact Us</a></li>
+                <% if(!admi){ %>
+                    <li><a href="/signup"><b>Signup</b></a></li>
+                    <li><a href="/login"><b>Login</b></a></li>
+                <% } %>                    
+                   <li><a href="/logout"><b>Logout</b></a></li>
             </ul>
+            <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
         </div>
-    </nav>
 
+        <!-- Mobile Menu -->
+        <ul class="nav-links-mobile">
+            <li><a href="/admin">Admin</a></li>
+            <li><a href="#why-choose-us">Why Choose Us</a></li>
+            <li><a href="#featured-jobs">Featured Jobs</a></li>
+            <li><a href="#job-listings">Job Listings</a></li>
+            <li><a href="#contact-us">Contact Us</a></li>
+            <% if(!admi){ %>
+                <li><a href="/signup"><b>Signup</b></a></li>
+                <li><a href="/login"><b>Login</b></a></li>
+            <% } %>                    
+            <li><a href="/logout"><b>Logout</b></a></li>
+        </ul>
+    </nav>
     <section class="job-details">
         
         <h1 class="job-title"><%=job.jobTitle %></h1>
@@ -177,9 +225,11 @@
             <strong>Job Description:</strong> <%=job.description %></p>
         <a href="job-apply/<%=job._id %>" class="apply-btn">Apply Now</a>
         <br>
+     <% if(user && user.username=="admin002"){  %>
         <form method="post" action="job-apply/<%=job._id %>?_method=DELETE">
             <button style="margin-top: 10px;" class="apply-btn" type="submit">delete</button>
         </form>
+        <% } %> 
     </section>
 
    

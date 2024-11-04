@@ -1,113 +1,223 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Applicant Form</title>
-    <link rel="stylesheet" href="/path-to-your-css/styles.css"> <!-- Link to your CSS file -->
-    <style>
-        body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-}
-
-.form-container {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 300px;
-    text-align: center;
-    height: auto;
-    margin-top: 3%;
-}
-
-h2 {
-    margin-bottom: 20px;
-}
-
-.form-group {
-    margin-bottom: 15px;
-    text-align: left;
-}
-
-label {
-    display: block;
-    margin-bottom: 5px;
-}
-
-input[type="text"], input[type="file"], textarea {
-    width: 90%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-textarea {
-    resize: vertical;
-}
-
-button {
-    background-color: #28a745;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    width: 100%;
-}
-
-button:hover {
-    background-color: #218838;
-}
-
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Job Application Form</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+      }
+      
+  body::-webkit-scrollbar {
+    width: 15px; /* Width of the scrollbar */
+  }
+  
+  body::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Background color of the scrollbar track */
+    border-radius: 10px; /* Rounding the track */
+  }
+  
+  body::-webkit-scrollbar-thumb {
+    background-color: #1d7756; /* Scrollbar color */
+    border-radius: 10px; /* Rounding the scrollbar */
+    border: 2px solid #f1f1f1; /* Adds a border for a better effect */
+  }
+  
+  body::-webkit-scrollbar-thumb:hover {
+    background-color: #155b3d; /* Darker color on hover */
+  }
+      
+      /* Navbar */
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 2rem;
+        background-color: #f7f7f7;
+      }
+      
+      .navbar-brand {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #1d7756;
+      }
+      
+      .navbar-links a {
+        margin-left: 1rem;
+        color: #1d7756;
+        text-decoration: none;
+      }
+      
+      .btn-primary {
+        padding: 0.5rem 1rem;
+        background-color: #1d7756;
+        color: #fff;
+        border-radius: 5px;
+        text-decoration: none;
+      }
+      
+      .form-section {
+        max-width: 600px;
+        margin: 2rem auto;
+        padding: 2rem;
+        border-radius: 10px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+      }
+      
+      .form-section h2 {
+        color: #1d7756;
+        margin-bottom: 0.5rem;
+      }
+      
+      .form-section p {
+        color: #555;
+        margin-bottom: 2rem;
+      }
+      
+      .application-form {
+        display: flex;
+        flex-direction: column;
+      }
+      
+      .form-group {
+        margin-bottom: 1.5rem;
+        text-align: left;
+      }
+      
+      .form-group label {
+        display: block;
+        font-weight: bold;
+        color: #555;
+        margin-bottom: 0.5rem;
+      }
+      
+      .form-group input,
+      .form-group select,
+      .form-group textarea {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+      }
+      
+      .form-group input:focus,
+      .form-group select:focus,
+      .form-group textarea:focus {
+        outline: none;
+        border-color: #1d7756;
+      }
+      
+      .btn-submit {
+        padding: 0.75rem;
+        background-color: #1d7756;
+        color: #fff;
+        font-size: 1rem;
+        font-weight: bold;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      
+      .btn-submit:hover {
+        background-color: #155b3d;
+      }
+      
+      .footer {
+        background-color: #1d7756;
+        color: #fff;
+        padding: 1rem 0;
+        text-align: center;
+        margin-top: 2rem;
+      }
+      
+      .footer p {
+        margin: 0;
+      }
+          
+</style>
 </head>
 <body>
-    <div class="form-container">
-        <h2>Applicant Form</h2>
-        <form action="/applicant" method="POST" enctype="multipart/form-data">
-            <h2>Apply for Job</h2>
-            <div class="form-group">
-                <label for="name">Full Name:</label>
-                <input type="text" id="name" name="name" required>
-            </div>
-            <div class="form-group">
-                <label for="description">Introduce Yourself :</label>
-                <textarea id="description" name="description" rows="4" placeholder="Indtorduce within 500 words"></textarea>
-            </div>
-            <div class="form-group">
-                <label for="education">Highest Education:</label>
-                <input type="text" id="education" name="education">
-            </div>
-            <div class="form-group">
-                <label for="education">Contact Number:</label>
-                <input type="text" id="contact" name="contact">
-            </div>
-            <div class="form-group">
-                <label for="state">Current State:</label>
-                <input type="text" id="state" name="state">
-            </div>
-            <div class="form-group">
-                <label for="country">Country:</label>
-                <input type="text" id="country" name="country">
-            </div>
-            <div class="form-group">
-                <label for="job">Job you apply for:</label>
-                <input  type="text" id="job" name="job" value="<%=job.jobTitle %>">
-            </div>
-            <div class="form-group">
-                <label for="skill">Skill you have:</label>
-                <input type="text" id="skill" name="skill">
-            </div>
-            
-            <button type="submit">Submit</button>
-        </form>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="navbar-brand">JobsPortal</div>
+    <div class="navbar-links">
+      <a href="#login">Login</a>
+      <a href="#post-job" class="btn-primary" style="color:white;">Post a Job</a>
     </div>
+  </nav>
+
+  <!-- Form Section -->
+  <section class="form-section">
+    <h2>Job Application Form</h2>
+    <p>Please fill in the form below to apply for the job.</p>
+    
+    <form action="/applicant" method="POST" enctype="multipart/form-data">
+      <div class="form-group">
+        <label for="full-name">Full Name</label>
+        <input type="text" id="full-name" name="fullName" required>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+
+      <div class="form-group">
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" name="phone" required>
+      </div>
+
+      <div class="form-group">
+        <label for="job-title">Job Title</label>
+        <input type="text" id="job-title" name="jobTitle" required>
+      </div>
+
+      <div class="form-group">
+        <label for="job-type">Job Type</label>
+        <select id="job-type" name="jobType" required>
+          <option value="full-time">Full Time</option>
+          <option value="part-time">Part Time</option>
+          <option value="freelance">Freelance</option>
+          <option value="internship">Internship</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="location">Location</label>
+        <input type="text" id="location" name="location" required>
+      </div>
+
+      <div class="form-group">
+        <label for="expected-salary">Expected Salary</label>
+        <input type="number" id="expected-salary" name="expectedSalary" required>
+      </div>
+
+      <div class="form-group">
+        <label for="resume">Upload Resume</label>
+        <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx" required>
+      </div>
+
+      <div class="form-group">
+        <label for="cover-letter">Cover Letter</label>
+        <textarea id="cover-letter" name="coverLetter" rows="4" required></textarea>
+      </div>
+
+      <button type="submit" class="btn-submit">Submit Application</button>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>© 2022 Jobs Portal. Designed by Wilson Kinyua.</p>
+  </footer>
+
 </body>
 </html>

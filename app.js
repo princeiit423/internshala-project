@@ -28,6 +28,7 @@ const upload = multer({ storage });
 
 
 app.set("views", path.join(__dirname, "views"));
+app.set("public", path.join(__dirname, "public"));
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
@@ -130,6 +131,7 @@ app.post(
         try {
             const list=await Job.find({});
     const admi= req.user||null;
+    //console.log(req.user);
     res.render("home/home1.ejs", {list, admi});
 
         } catch (error) {
@@ -152,14 +154,14 @@ app.get("/logout", (req, res, next) => {
 
 app.post("/applicant",isLoggedIn,upload.single("resume"), async(req, res) => {
     try {
-       // const url = req.file.path;
+        //const url = req.file.path;
         //const filename = req.file.filename;
-        const { name, description, resume, education, state, country, job, skill } = req.body;
+        const { fullName,email,phone,jobTitle,jobType,location,expectedSalary,resume,url,coverLetter,submittedAt} = req.body;
         const newApplicant = new Applicant({
-            name, description, resume, education, state, country, job, skill
+            fullName,email,phone,jobTitle,jobType,location,expectedSalary,resume,url,coverLetter,submittedAt
         });
 
-        //newApplicant.resume = { url, filename };
+       // newApplicant.resume = { url, filename };
         await newApplicant.save();
         //const id= await newApplicant._id;
         res.redirect("/success");
@@ -171,7 +173,7 @@ app.post("/applicant",isLoggedIn,upload.single("resume"), async(req, res) => {
   app.get("/preview/:id",isLoggedIn, async(req,res)=>{
             try {
                 const id= req.params.id;
-                const applicant= await Applicant.findById(id);
+                const applicant= await Job.findById(id);
                 res.render("preview/preview.ejs",{applicant});
             } catch (error) {
                 res.send(error);
@@ -194,7 +196,8 @@ app.post("/applicant",isLoggedIn,upload.single("resume"), async(req, res) => {
     try {
         const id = req.params.id;
     const job= await Job.findById(id);
-    res.render("show-job/show-job.ejs",{job});
+    const admi= req.user||null;
+    res.render("show-job/show-job.ejs",{job, user:req.user, admi});
     } catch (error) {
         res.send(error);
     }
@@ -212,8 +215,8 @@ app.delete("/job-posting/job-apply/:id", isLoggedIn,isAdmin, async(req,res)=>{
 
   app.post("/job-posting",isLoggedIn,isAdmin,async(req,res)=>{
     try {
-        const {jobTitle,description,jobType,location,salary,skill,country,companyName}=req.body;
-    const listing= await new Job({jobTitle,description,companyName,jobType,location,salary,skill,country});
+        const {jobTitle,companyName,companyWebsite,jobCategory,jobType,jobLocation,salaryRange,experince,qualification,applicationDeadline,applicationLink,jobDescription,createdAt}=req.body;
+    const listing= await new Job({jobTitle,companyName,companyWebsite,jobCategory,jobType,jobLocation,salaryRange,experince,qualification,applicationDeadline,applicationLink,jobDescription,createdAt});
     await listing.save();
     res.redirect("/admin");
     } catch (error) {
@@ -225,7 +228,8 @@ app.delete("/job-posting/job-apply/:id", isLoggedIn,isAdmin, async(req,res)=>{
     try {
         const id = req.params.id;
     const job= await Job.findById(id);
-    res.render("job/job.ejs",{job});
+    const admi= req.user||null;
+    res.render("job/job.ejs",{job,admi});
     } catch (error) {
         res.send(error);
     }

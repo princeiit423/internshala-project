@@ -1,24 +1,54 @@
-const mongoose= require("mongoose");
-const Schema= mongoose.Schema;
+const mongoose = require('mongoose');
 
-const applicantSchema= new Schema({
-    name: {
-        type: String,
-        required: true,
+const applicantSchema = new mongoose.Schema({
+  fullName: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+    match: /.+\@.+\..+/ // Basic email format validation
+  },
+  phone: {
+    type: String,
+    required: true,
+  },
+  jobTitle: {
+    type: String,
+    required: true,
+  },
+  jobType: {
+    type: String,
+    required: true,
+    enum: ['full-time', 'part-time', 'freelance', 'internship'] // Restrict values to specified options
+  },
+  location: {
+    type: String,
+    required: true,
+  },
+  expectedSalary: {
+    type: Number,
+    required: true,
+  },
+  resume: {
+    filename: {
+      type: String,
+      //required: true,
     },
-    description: String,
-    contact:Number,
-    education: String,
-    state: String,
-    country: String,
-    job:String,
-    skill:String,
-    resume:{
-        url: String,
-        filename:String,    
-    },
+    url: {
+      type: String,
+      //required: true,
+    }
+  },
+  coverLetter: {
+    type: String,
+    required: true,
+  },
+  submittedAt: {
+    type: Date,
+    default: Date.now
+  }
 });
 
-
-const Applicant = mongoose.model("Applicant", applicantSchema);
-module.exports = Applicant;
+module.exports = mongoose.model('Applicant', applicantSchema);

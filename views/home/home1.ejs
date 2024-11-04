@@ -3,357 +3,360 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Job Portal - Modern UI</title>
+    <title>Jobs Portal - Home</title>
     <style>
         /* Basic Reset */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: Arial, sans-serif;
         }
 
-        /* Body */
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f5f7f9;
+            background-color: #f9f9f9;
             color: #333;
             line-height: 1.6;
-        }
-
-        /* Navbar */
-        nav {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            padding: 15px 20px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            position: fixed;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             width: 100%;
-            top: 0;
-            left: 0;
-            z-index: 1000;
         }
 
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
+        body::-webkit-scrollbar {
+            width: 15px; /* Width of the scrollbar */
+          }
+          
+          body::-webkit-scrollbar-track {
+            background: #f1f1f1; /* Background color of the scrollbar track */
+            border-radius: 10px; /* Rounding the track */
+          }
+          
+          body::-webkit-scrollbar-thumb {
+            background-color: #1d7756; /* Scrollbar color */
+            border-radius: 10px; /* Rounding the scrollbar */
+            border: 2px solid #f1f1f1; /* Adds a border for a better effect */
+          }
+          
+          body::-webkit-scrollbar-thumb:hover {
+            background-color: #155b3d; /* Darker color on hover */
+          }
+
+        /* Header Section */
+        header {
+            background-color: white;
+            color: #338573;
+            width: 100%;
+            padding: 1rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .logo {
+        .navbar {
+            width: 100%;
+            padding: 10px;
+            background-color: #ffffff;
+            box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          }
+      
+          .navbar .logo {
             font-size: 24px;
-            font-weight: 600;
-            color: #16a085;
-        }
-
-        .nav-links {
-            list-style: none;
-            display: flex;
-            gap: 20px;
-        }
-
-        .nav-links li {
-            position: relative;
-        }
-
-        .nav-links li a {
+            font-weight: bold;
+            color: #2f7368;
             text-decoration: none;
-            color: #333;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        .nav-links li a:hover {
-            color: #16a085;
-        }
-
-        /* Header */
-        header {
-            background: linear-gradient(135deg, #1abc9c, #16a085);
-            color: white;
-            padding: 100px 20px 60px;
-            text-align: center;
-            position: relative;
-            margin-top: 60px; /* Adjusted for fixed navbar */
-        }
-
-        .header-title {
-            font-size: 36px;
-            margin-bottom: 10px;
-        }
-
-        .header-subtitle {
-            font-size: 18px;
-            margin-bottom: 20px;
-        }
-
-        .search-form {
+          }
+      
+          .navbar .nav-links {
             display: flex;
-            max-width: 800px;
-            margin: 0 auto;
-            gap: 10px;
-            justify-content: center;
-        }
-
-        .search-input,
-        .search-btn {
-            padding: 15px;
-            border-radius: 5px;
-            border: none;
-            font-size: 16px;
-        }
-
-        .search-input {
-            flex: 2;
-            border: 1px solid #ddd;
-        }
-
-        .search-btn {
-            flex: 1;
-            background-color: #fff;
-            color: #16a085;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-        }
-
-        .search-btn:hover {
-            background-color: #f5f5f5;
-            transform: translateY(-3px);
-        }
-
-        /* Sections */
-        .section {
-            padding: 60px 20px;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 32px;
-            margin-bottom: 40px;
-            color: #333;
-        }
-
-        .section-content {
-            max-width: 1200px;
-            margin: 0 auto;
-
-        }
-
-        .where-we-thrive,
-        .why-choose-us,
-        .contact-us,
-        .job-listings {
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            padding: 30px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .why-choose-us {
-            background: #f9f9f9;
-        }
-
-        .feature-card {
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            max-width: 300px;
-            margin: 0 auto;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-        }
-
-        .feature-card-title {
-            font-size: 20px;
-            margin-bottom: 10px;
-        }
-
-        .feature-card-description {
-            color: #777;
-        }
-
-        .job-card {
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            max-width: 300px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            margin: 0 auto;
-            margin: 20px;
-        }
-
-        .job-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-        }
-
-        .job-title {
-            font-size: 20px;
-            margin-bottom: 10px;
-            color: #16a085;
-        }
-
-        .job-company,
-        .job-location {
-            color: #777;
-            margin-bottom: 15px;
-        }
-
-        .apply-btn {
-            display: inline-block;
-            background-color: #1abc9c;
+            align-items: center;
+            gap: 20px;
+            
+          }
+      
+          .navbar .nav-links a {
             color: white;
-            padding: 10px 15px;
-            border-radius: 5px;
             text-decoration: none;
             font-weight: bold;
-            transition: background-color 0.3s ease, transform 0.3s ease;
+          }
+      
+          .navbar .post-job-btn {
+            background-color: #2f7368;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            text-decoration: none;
+          }
+      
+      
+        /* Hero Section */
+        .hero {
+            background:url('image.png') center/cover no-repeat;
+            color: black;
+            padding: 4rem 1rem;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
         }
 
-        .apply-btn:hover {
-            background-color: #16a085;
-            transform: translateY(-3px);
+        .hero-content {
+            max-width: 800px;
+            padding: 1rem 2rem;
         }
 
-        .contact-btn {
-            background-color: #1abc9c;
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            width:auto;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .hero .cta-button {
+            background-color: #338573;
             color: white;
             padding: 10px 20px;
             border-radius: 5px;
-            text-decoration: none;
             font-weight: bold;
-            transition: background-color 0.3s ease, transform 0.3s ease;
+            text-transform: uppercase;
+            transition: background-color 0.3s;
+            border: 2px solid white;
         }
 
-        .contact-btn:hover {
-            background-color: #16a085;
-            transform: translateY(-3px);
+        .hero .cta-button:hover {
+            background-color: #2a6e5d;
         }
 
-        /* Footer */
-        footer {
-            background-color: #1abc9c;
+        /* Search Section */
+        .search-section {
+            display: flex;
+            width: auto;
+            max-width: 800px;
+            margin-top:5rem;
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            height:4rem;
+            border-color:transparent;
+        }
+
+        .search-section input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            border: transparent;
+            font-size: 1rem;
+        }
+
+        .search-section button {
+            background-color: #338573;
             color: white;
-            padding: 20px;
+            padding: 10px 15px;
+            border: none;
+            font-weight: bold;
+            font-size:1.2rem;
+            cursor: pointer;
+            width:7rem;
+            transition: background-color 0.3s;
+        }
+
+        .search-section button:hover {
+            background-color: #2a6e5d;
+        }
+
+        /* Categories Section */
+        .categories-section {
+            padding: 2rem 1rem;
             text-align: center;
+            width: 100%;
         }
 
-        @media (max-width: 768px) {
-            .nav-links {
-                flex-direction: column;
-                gap: 10px;
-            }
-
-            .search-form {
-                flex-direction: column;
-            }
-
-            .search-input,
-            .search-btn {
-                width: 100%;
-            }
-        }
-        .cont{
-        display: flex;
-        justify-content: space-between;
-        flex-wrap: nowrap;
-        height: auto;
-        width: auto;
+        .categories-section h2 {
+            color: #338573;
+            font-size: 2rem;
+            margin-bottom: 1rem;
         }
 
+        .categories-list {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .category-item {
+            background-color: #f1f1f1;
+            color: #338573;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-align: center;
+            width: 140px;
+            font-weight: bold;
+        }
+
+        .category-item:hover {
+            background-color: #e3e3f9;
+        }
+
+        /* Job Listings Section */
+        .job-listings {
+            width: 100%;
+            max-width: 1000px;
+            padding: 2rem 1rem;
+        }
+
+        .job-listings h2 {
+            color: #338573;
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .job-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 5px solid #338573;
+        }
+
+        .job-info {
+            max-width: 70%;
+        }
+
+        .job-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #338573;
+        }
+
+        .job-details {
+            color: #555;
+            margin: 5px 0;
+        }
+
+        .view-details-btn {
+            background-color: #338573;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .view-details-btn:hover {
+            background-color: #2a6e5d;
+        }
+
+        /* Footer Section */
+        footer {
+            background-color: #1d7756;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            width: 100%;
+        }
+
+        footer p {
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: underline;
+            transition: color 0.3s;
+        }
+
+        footer a:hover {
+            color: #338573;
+        }
+        .log{
+            width:5rem;
+            color:white;
+            background-color:green;
+            border-radius:10px;
+            text-align:center;
+        }
     </style>
 </head>
 <body>
-    <nav>
-        <div class="nav-container">
-            <div class="logo">JobConnect</div>
-            <ul class="nav-links">
-                <li><a href="/admin">Admin</a></li>
-                <li><a href="#why-choose-us">Why Choose Us</a></li>
-                <li><a href="#featured-jobs">Featured Jobs</a></li>
-                <li><a href="#job-listings">Job Listings</a></li>
-                <li><a href="#contact-us">Contact Us</a></li>
-                <% if(!admi){ %>
-                    <li><a href="/signup"><b>Signup</b></a></li>
-                    <li><a href="/login"><b>Login</b></a></li>
-                <% } %>                    
-                   <li><a href="/logout"><b>Logout</b></a></li>
-            </ul>
+    <!-- Header -->
+    <div class="navbar">
+        <a href="#" class="logo">JobsPortal</a>
+        <div class="nav-links">
+          <a href="#" style=color:#2f7368;>Login</a>
+          <a href="#" style=color:#2f7368;>Signup</a>
+          <a href="#" class="post-job-btn" style="margin-right:2rem;">Post job</a>
         </div>
-    </nav>
+      </div>
 
-    <header>
-        <div class="header-content">
-            <h1 class="header-title">Find Your Dream Job</h1>
-            <p class="header-subtitle">Explore top job opportunities and find your perfect match.</p>
-            <form class="search-form">
-                <input type="text" class="search-input" placeholder="Job title, keywords, or company">
-                <button type="submit" class="search-btn">Search</button>
-            </form>
-        </div>
-    </header>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Find A <span style= color:#338573;>Job</span> That <span style= color:#338573;>Matches</span> Your Passion</h1>
+            <p>Hand-picked opportunities to work from home, remotely, freelance, full-time, part-time, contract and internships.</p>
 
-    <section id="where-we-thrive" class="section where-we-thrive">
-        <div class="section-content">
-            <h2 class="section-title">Where We Thrive</h2>
-            <p>Our platform excels in connecting talent with top-tier companies across various industries. We thrive on providing the best job opportunities and career growth prospects.</p>
-        </div>
-    </section>
-
-    <section id="why-choose-us" class="section why-choose-us">
-        <div class="section-content">
-            <h2 class="section-title">Why Choose Us</h2>
-            <div class="feature-card">
-                <h3 class="feature-card-title">Wide Range of Jobs</h3>
-                <p class="feature-card-description">Access thousands of job listings across different industries and job types.</p>
-            </div>
-            <div class="feature-card">
-                <h3 class="feature-card-title">Trusted Employers</h3>
-                <p class="feature-card-description">Work with trusted and reputable companies looking for top talent.</p>
-            </div>
-            <div class="feature-card">
-                <h3 class="feature-card-title">Easy Application Process</h3>
-                <p class="feature-card-description">Simplify your job search with a streamlined application process.</p>
+            <!-- Search Section -->
+            <div class="search-section">
+                <input type="text" placeholder="Search by job title..." />
+                <button>Search</button>
             </div>
         </div>
     </section>
 
-    <section id="job-listings" class="section job-listings">
-        <div id="list" class="section-content">
-            
-            <h2 class="section-title">Job Listings</h2>
-            <div class="cont">
-            <% for(job of list){ %>
-            <div class="job-card">
-                <h3 class="job-title"><%= job.jobTitle %></h3>
-                <p class="job-company"><%=job.companyName %></p>
-                <p class="job-location"><%=job.location %></p>
-                <a href="job-posting/<%=job._id %>" class="apply-btn">Apply Now</a>
+    <!-- Categories Section -->
+    <section class="categories-section">
+        <h2>Popular Categories</h2>
+        <div class="categories-list">
+            <div class="category-item">Technology</div>
+            <div class="category-item">Finance</div>
+            <div class="category-item">Marketing</div>
+            <div class="category-item">Design</div>
+            <div class="category-item">Healthcare</div>
+            <div class="category-item">Engineering</div>
+        </div>
+    </section>
+
+    <!-- Job Listings Section -->
+    <section class="job-listings">
+        <h2>All Popular Listed Jobs</h2>
+        <% for(job of list){ %>
+        <div class="job-card">
+            <div class="job-info">
+                <div class="job-title"><%=job.jobTitle %></div>
+                <div class="job-details"><%=job.jobDescription %></div>
+                <div class="job-details"><%=job.jobLocation%>| <%=job.salaryRange %> | <%=job.jobType %></div>
             </div>
-            <% } %>
+            <a href="/preview/<%=job._id %>"><button class="view-details-btn">View Details</button></a>
         </div>
-        </div>
+        <%}%>
     </section>
 
-    <section id="contact-us" class="section contact-us">
-        <div class="section-content">
-            <h2 class="section-title">Contact Us</h2>
-            <p style="margin-bottom: 10px;">Need assistance or have questions? We're here to help! Whether you're a job seeker looking for the perfect opportunity or an employer searching for the right talent, our team is dedicated to supporting you every step of the way. Feel free to reach out to us with any inquiries, feedback, or support requests. You can contact us via email, phone, or by filling out the contact form below. We strive to respond to all inquiries within 24 hours. Your success is our priority, and we're committed to helping you achieve your career or hiring goals.</p>
-            <a style="margin-top:10px;" href="mailto:princeiit423@gmail.com" class="contact-btn">Get in Touch</a>
-        </div>
-    </section>
-
+    <!-- Footer -->
     <footer>
-        <p>&copy; 2024 JobPortal. All rights reserved.</p>
+        <p>© 2022 Jobs Portal. Designed By Wilson Kinyua.</p>
+        <p><a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
     </footer>
 </body>
 </html>
