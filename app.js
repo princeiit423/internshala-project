@@ -88,6 +88,25 @@ app.get("/", async(req, res) => {
         res.send(error);
     }
 })
+app.get("/dashboard",async(req,res)=>{
+    try {
+        //console.log(req.user.id);
+        const user = await User.findById(req.user.id)
+            .populate({
+                path: "applicantId",
+                populate: {
+                    path: "jobId", // Nested populate for job details
+                    model: "Job"
+                }
+            });
+        res.render("dashboard/dashboard.ejs",{user});
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Server error");
+    }
+
+    // res.render("dashboard/dashboard.ejs");
+})
 
 
 app.get("/signup", (req, res) => {
@@ -97,6 +116,7 @@ app.get("/signup", (req, res) => {
 
  app.post("/signup", async (req, res) => {
         try {
+
             let { username, email, password } = req.body;
             const chutiyaUser = new User({ username, email });
             let registerUser = await User.register(chutiyaUser, password);
@@ -156,14 +176,19 @@ app.post("/applicant",isLoggedIn,upload.single("resume"), async(req, res) => {
     try {
         //const url = req.file.path;
         //const filename = req.file.filename;
-        const { fullName,email,phone,jobTitle,jobType,location,expectedSalary,resume,url,coverLetter,submittedAt} = req.body;
+        const { fullName,email,phone,jobTitle,jobType,location,expectedSalary,resume,url,coverLetter,submittedAt,jobId} = req.body;
         const newApplicant = new Applicant({
-            fullName,email,phone,jobTitle,jobType,location,expectedSalary,resume,url,coverLetter,submittedAt
+            fullName,email,phone,jobTitle,jobType,location,expectedSalary,resume,url,coverLetter,submittedAt,jobId
         });
+
 
        // newApplicant.resume = { url, filename };
         await newApplicant.save();
         //const id= await newApplicant._id;
+        const user = await User.findById(req.user._id);
+        user.applicantId = newApplicant._id; // Set applicantId for the user
+        await user.save();
+        
         res.redirect("/success");
     } catch (error) {
         res.send(error);
@@ -174,7 +199,8 @@ app.post("/applicant",isLoggedIn,upload.single("resume"), async(req, res) => {
             try {
                 const id= req.params.id;
                 const applicant= await Job.findById(id);
-                res.render("preview/preview.ejs",{applicant});
+                const admi= req.user||null;
+                res.render("preview/preview.ejs",{applicant,admi,user:req.user});
             } catch (error) {
                 res.send(error);
             }
@@ -188,8 +214,9 @@ app.post("/applicant",isLoggedIn,upload.single("resume"), async(req, res) => {
     res.render("admin/admin.ejs");
   })
 
-  app.get("/job-posting",isLoggedIn, (req,res)=>{
-    res.render("job-posting/job-posting.ejs");
+  app.get("/job-posting",isLoggedIn,isAdmin, (req,res)=>{
+    const admi= req.user||null;
+    res.render("job-posting/job-posting.ejs",{admi});
   })
 
   app.get("/job-posting/:id",isLoggedIn, async(req,res)=>{
@@ -206,8 +233,8 @@ app.post("/applicant",isLoggedIn,upload.single("resume"), async(req, res) => {
 app.delete("/job-posting/job-apply/:id", isLoggedIn,isAdmin, async(req,res)=>{
     try {
         const id = req.params.id;
-    await Job.findByIdAndDelete(id);
-    res.redirect("/")
+    await Job.findByIdAndDelete(id); 
+    res.redirect("/");
     } catch (error) {
         res.send(error);
     }
@@ -218,7 +245,10 @@ app.delete("/job-posting/job-apply/:id", isLoggedIn,isAdmin, async(req,res)=>{
         const {jobTitle,companyName,companyWebsite,jobCategory,jobType,jobLocation,salaryRange,experince,qualification,applicationDeadline,applicationLink,jobDescription,createdAt}=req.body;
     const listing= await new Job({jobTitle,companyName,companyWebsite,jobCategory,jobType,jobLocation,salaryRange,experince,qualification,applicationDeadline,applicationLink,jobDescription,createdAt});
     await listing.save();
-    res.redirect("/admin");
+    
+    const list=await Job.find({});
+    const admi= req.user||null;
+    res.redirect("/");
     } catch (error) {
         res.send(error);
     }

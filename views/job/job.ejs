@@ -149,7 +149,12 @@
   <nav class="navbar">
     <div class="navbar-brand">JobsPortal</div>
     <div class="navbar-links">
-      <a href="#login">Login</a>
+      <% if(admi) { %>
+        <a href="/logout" style=color:#2f7368;>Logout</a>
+    <%} else { %>
+  <a href="/login" style=color:#2f7368;>Login</a>
+  <a href="/signup" style=color:#2f7368;>Signup</a>
+  <% } %>
       <a href="#post-job" class="btn-primary" style="color:white;">Post a Job</a>
     </div>
   </nav>
@@ -177,12 +182,12 @@
 
       <div class="form-group">
         <label for="job-title">Job Title</label>
-        <input type="text" id="job-title" name="jobTitle" required>
+        <input type="text" id="job-title" value="<%=job.jobTitle %>" name="jobTitle" required>
       </div>
 
       <div class="form-group">
         <label for="job-type">Job Type</label>
-        <select id="job-type" name="jobType" required>
+        <select id="job-type" name="jobType" value="<%=job.jobType %>" required>
           <option value="full-time">Full Time</option>
           <option value="part-time">Part Time</option>
           <option value="freelance">Freelance</option>
@@ -192,7 +197,7 @@
 
       <div class="form-group">
         <label for="location">Location</label>
-        <input type="text" id="location" name="location" required>
+        <input type="text" id="location" value="<%=job.jobLocation %>" name="location" required>
       </div>
 
       <div class="form-group">
@@ -209,6 +214,11 @@
         <label for="cover-letter">Cover Letter</label>
         <textarea id="cover-letter" name="coverLetter" rows="4" required></textarea>
       </div>
+      
+      <div class="form-group">
+        <input type="hidden" id="expected-salary" value="<%=job._id %>" name="jobId" required>
+      </div>
+
 
       <button type="submit" class="btn-submit">Submit Application</button>
     </form>

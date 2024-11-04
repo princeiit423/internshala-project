@@ -60,7 +60,7 @@ body::-webkit-scrollbar {
 .nav-links a {
     margin-left: 20px;
     font-size: 16px;
-    color: #333;
+    color: white;
     text-decoration: none;
 }
 
@@ -80,6 +80,7 @@ body::-webkit-scrollbar {
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     padding: 20px 30px;
     margin-top: 20px;
+    margin-bottom: 6rem;
 }
 
 .job-title {
@@ -162,24 +163,30 @@ li {
     <header class="navbar">
         <div class="logo">JobsPortal</div>
         <div class="nav-links">
-            <a href="#" class="login-link">Login</a>
+            <% if(admi) { %>
+                <a href="/logout" style=color:#2f7368;>Logout</a>
+            <%} else { %>
+          <a href="/login" style=color:#2f7368;>Login</a>
+          <a href="/signup" style=color:#2f7368;>Signup</a>
+          <% } %>
             <a href="#" class="post-job-button">Post a job</a>
         </div>
     </header>
 
+    
     <div class="job-details-container">
+        <form method="POST" action="/job-posting/job-apply/<%=applicant._id %>?_method=DELETE">
         <h1 class="job-title"><%=applicant.jobTitle %> <span class="job-type">(<%=applicant.jobType %>)</span> - <%=applicant.companyName %></h1>
-        
         <div class="job-actions">
             <button class="view-company-btn">View Company</button>
-            <button class="apply-job-btn">Apply This Job</button>
+            
         </div>
 
         <section class="job-info">
             <p><strong>Minimum Qualification:</strong><%=applicant.qualification%></p>
             <p><strong>Experience Level:</strong> Mid level</p>
             <p><strong>Experience Length:</strong> 2 years</p>
-            <p><strong>Location:</strong><%=applicant.location %></p>
+            <p><strong>Location:</strong><%=applicant.jobLocation %></p>
             <p><strong>Application Deadline:</strong><%=applicant.applicationDeadline %></p>
             <p><strong>Salary Range:</strong><%=applicant.salaryRange %></p>
         </section>
@@ -221,7 +228,19 @@ li {
                 <li>Presenting work in meetings with clients and management.</li>
             </ul>
         </section>
+        <% if(user.username=="admin002"){ %>
+        <button class="apply-job-btn" style="background-color: red; position: relative; left: 40%; text-align: center;" type="submit">Delete This Job</button>
+            <%} else { %>
+                <i></i>
+                <% }%>
+    </form>
+    <a method="get" href="/job-posting/job-apply/<%=applicant._id %>" style="position: relative; left: 40%; text-align: center;"><button class="apply-job-btn">Apply This Job</button></a>
     </div>
+    
+
+    
+
+    
 
     <footer class="footer">
         <p>&copy; 2022 Jobs Portal. Designed by Wilson Kinyua.</p>

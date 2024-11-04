@@ -5,8 +5,16 @@ const passportLocalMongoose= require("passport-local-mongoose");
 const userSchema= new mongoose.Schema({
     email:{
         type:String,
-        required: true,
+        
     },
+    applicantId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Applicant" // Reference to Applicant model
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
+      }
 });
 userSchema.plugin(passportLocalMongoose);
 

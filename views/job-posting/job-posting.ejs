@@ -196,7 +196,12 @@ header .nav-links a {
   <header class="navbar">
     <div class="logo" style="color:#2f7368;">JobsPortal</div>
     <div class="nav-links">
-        <a href="#" class="login-link" style="color:#2f7368;">Login</a>
+      <% if(admi) { %>
+        <a href="/logout" style=color:#2f7368;>Logout</a>
+    <%} else { %>
+  <a href="/login" style=color:#2f7368;>Login</a>
+  <a href="/signup" style=color:#2f7368;>Signup</a>
+  <% } %>
         <a href="#" class="post-job-button" style="background-color:#2f7368;">Post a job</a>
     </div>
 </header>

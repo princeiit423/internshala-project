@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jobs Portal - Home</title>
+    <link rel="icon" type="png" sizes="32x32" href="https://i.postimg.cc/mgtpLDsH/favicon-32x32.png">
     <style>
         /* Basic Reset */
         * {
@@ -269,6 +270,172 @@
             background-color: #2a6e5d;
         }
 
+        /* Testimonials Section */
+.testimonials-section {
+    padding: 2rem 1rem;
+    text-align: center;
+    background-color: #ffffff;
+}
+
+.testimonials-section h2 {
+    color: #338573;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.testimonials-list {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.testimonial-item {
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    max-width: 300px;
+}
+
+/* How It Works Section */
+.how-it-works-section {
+    padding: 2rem 1rem;
+    text-align: center;
+    background-color: #f9f9f9;
+}
+
+.how-it-works-list {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.step {
+    background-color: #ffffff;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    max-width: 250px;
+}
+
+/* Latest News & Articles Section */
+.latest-news-section {
+    padding: 2rem 1rem;
+    text-align: center;
+}
+
+.news-list {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.news-item {
+    background-color: #ffffff;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    max-width: 250px;
+}
+
+/* FAQ Section */
+.faq-section {
+    padding: 2rem 1rem;
+    text-align: center;
+}
+
+.faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Call to Action Section */
+.cta-section {
+    padding: 2rem 1rem;
+    text-align: center;
+    background-color: #338573;
+    color: white;
+}
+
+.cta-button {
+    background-color: #2f7368;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    margin: 10px;
+}
+
+.cta-button:hover {
+    background-color: #2a6e5d;
+}
+
+
+/* FAQ Section */
+.faq-section {
+    padding: 2rem 1rem;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 2rem 0;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 800px;
+    text-align: left;
+}
+
+.faq-section h2 {
+    color: #338573;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.faq-container {
+    margin-top: 1rem;
+}
+
+.faq-item {
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #e1e1e1;
+}
+
+.faq-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    padding: 1rem 0;
+    font-weight: bold;
+    color: #338573;
+}
+
+.faq-answer {
+    display: none; /* Initially hidden */
+    padding: 0.5rem 0;
+    color: #555;
+    font-size: 0.9rem;
+}
+
+.toggle {
+    font-size: 1.5rem;
+    color: #338573;
+    transition: transform 0.3s;
+}
+
+.faq-item.active .faq-answer {
+    display: block; /* Show answer when active */
+}
+
+.faq-item.active .toggle {
+    transform: rotate(45deg); /* Rotate the plus sign */
+}
+
         /* Footer Section */
         footer {
             background-color: #1d7756;
@@ -305,9 +472,14 @@
     <div class="navbar">
         <a href="#" class="logo">JobsPortal</a>
         <div class="nav-links">
-          <a href="#" style=color:#2f7368;>Login</a>
-          <a href="#" style=color:#2f7368;>Signup</a>
-          <a href="#" class="post-job-btn" style="margin-right:2rem;">Post job</a>
+            <% if(admi) { %>
+                <a href="/logout" style=color:#2f7368;>Logout</a>
+                <a href="/dashboard" style=color:#2f7368;>Dashboard</a>
+            <%} else { %>
+          <a href="/login" style=color:#2f7368;>Login</a>
+          <a href="/signup" style=color:#2f7368;>Signup</a>
+          <% } %>
+          <a href="/job-posting" class="post-job-btn" style="margin-right:2rem;">Post job</a>
         </div>
       </div>
 
@@ -353,10 +525,93 @@
         <%}%>
     </section>
 
+    <!-- Testimonials Section -->
+<section class="testimonials-section">
+    <h2>What Our Users Say</h2>
+    <div class="testimonials-list">
+        <div class="testimonial-item">
+            <p>"Thanks to JobsPortal, I landed my dream job!"</p>
+            <span>- Jane Doe, Software Engineer</span>
+        </div>
+        <div class="testimonial-item">
+            <p>"The job listings were up-to-date and relevant. Highly recommend!"</p>
+            <span>- John Smith, Marketing Manager</span>
+        </div>
+        <div class="testimonial-item">
+            <p>"A great platform to connect with employers and find opportunities!"</p>
+            <span>- Emily Johnson, Graphic Designer</span>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-container">
+        <div class="faq-item">
+            <div class="faq-question">
+                <h3>What types of jobs can I find on this portal?</h3>
+                <span class="toggle">+</span>
+            </div>
+            <div class="faq-answer">
+                <p>You can find various job listings including full-time, part-time, freelance, and internships across multiple industries such as technology, finance, marketing, and more.</p>
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">
+                <h3>How do I apply for a job?</h3>
+                <span class="toggle">+</span>
+            </div>
+            <div class="faq-answer">
+                <p>To apply for a job, simply click on the job listing you are interested in and follow the application instructions provided in the job details.</p>
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">
+                <h3>Can I post a job listing?</h3>
+                <span class="toggle">+</span>
+            </div>
+            <div class="faq-answer">
+                <p>Yes, you can post a job listing by clicking the 'Post Job' button in the navigation bar and filling out the required details in the job posting form.</p>
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">
+                <h3>Is there a fee to use this job portal?</h3>
+                <span class="toggle">+</span>
+            </div>
+            <div class="faq-answer">
+                <p>No, using our job portal is completely free for job seekers. Employers may have fees for premium listings.</p>
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">
+                <h3>How can I contact support?</h3>
+                <span class="toggle">+</span>
+            </div>
+            <div class="faq-answer">
+                <p>If you need assistance, please visit our Contact Us page, and we will get back to you as soon as possible.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
     <!-- Footer -->
     <footer>
         <p>© 2022 Jobs Portal. Designed By Wilson Kinyua.</p>
         <p><a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
     </footer>
+    <script>
+        const faqQuestions = document.querySelectorAll('.faq-question');
+    
+        faqQuestions.forEach(question => {
+            question.addEventListener('click', () => {
+                const faqItem = question.parentElement;
+                faqItem.classList.toggle('active');
+            });
+        });
+    </script>
+    
 </body>
 </html>
