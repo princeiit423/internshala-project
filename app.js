@@ -88,7 +88,7 @@ app.get("/", async(req, res) => {
         res.send(error);
     }
 })
-app.get("/dashboard",async(req,res)=>{
+app.get("/dashboard",isLoggedIn,async(req,res)=>{
     try {
         //console.log(req.user.id);
         const user = await User.findById(req.user.id)
