@@ -8,15 +8,16 @@ const session = require("express-session");
 const MongoStore = require('connect-mongo');
 const Applicant = require("./models/applicant.js");
 const Job= require("./models/job.js");
-isLoggedIn= require("./middleware.js");
-isAdmin= require("./isAdmin.js");
+const isLoggedIn= require("./middleware.js");
+const isAdmin= require("./isAdmin.js");
+const isApply= require("./isApply")
 const path = require("path");
 const passport = require("passport");
 const localStrategy = require("passport-local");
 const User = require("./models/user.js");
 require('dotenv').config()
 
-port = process.env.PORT || 4000;
+const port = process.env.PORT || 4000;
 
 
 
@@ -88,7 +89,7 @@ app.get("/", async(req, res) => {
         res.send(error);
     }
 })
-app.get("/dashboard",isLoggedIn,async(req,res)=>{
+app.get("/dashboard",isLoggedIn,isApply,async(req,res)=>{
     try {
         //console.log(req.user.id);
         const user = await User.findById(req.user.id)
