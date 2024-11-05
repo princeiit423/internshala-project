@@ -10,7 +10,7 @@ const Applicant = require("./models/applicant.js");
 const Job= require("./models/job.js");
 const isLoggedIn= require("./middleware.js");
 const isAdmin= require("./isAdmin.js");
-const isApply= require("./isApply")
+const isApply = require("./isApply");
 const path = require("path");
 const passport = require("passport");
 const localStrategy = require("passport-local");
@@ -38,8 +38,8 @@ app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));
 //app.use(bodyParser.urlencoded({ extended: true }));
 
-dbUrl=process.env.DBM;
-//const dbUrl="mongodb://localhost:27017/internship";
+//dbUrl=process.env.DBM;
+const dbUrl="mongodb://localhost:27017/internship";
 try {
     mongoose.connect(dbUrl);
     console.log("connect to databse")
